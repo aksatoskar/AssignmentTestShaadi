@@ -5,7 +5,7 @@ import androidx.room.Entity
 @Entity
 data class Picture (
 
-	val large : String,
-	val medium : String,
-	val thumbnail : String
+	val large : String? = null,
+	val medium : String? = null,
+	val thumbnail : String? = null
 )

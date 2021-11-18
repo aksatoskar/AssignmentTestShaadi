@@ -5,6 +5,6 @@ import androidx.room.Entity
 @Entity
 data class Coordinates (
 
-	val latitude : Double,
-	val longitude : Double
+	val latitude : Double? = null,
+	val longitude : Double? = null
 )

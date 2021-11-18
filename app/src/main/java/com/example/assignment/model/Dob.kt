@@ -5,6 +5,6 @@ import androidx.room.Entity
 @Entity
 data class Dob (
 
-	val date : String,
-	val age : Int
+	val date : String? = null,
+	val age : Int? = null
 )

@@ -29,6 +29,7 @@ ext {
     roomVersion = "2.3.0"
     moshiVersion = "1.9.2"
     hiltVersion = "2.38.1"
+    coilVersion = "1.2.2"
 
 }
 

@@ -5,7 +5,7 @@ import androidx.room.Entity
 @Entity
 data class Name (
 
-	val title : String,
-	val first : String,
-	val last : String
+	val title : String? = null,
+	val first : String? = null,
+	val last : String? = null
 )

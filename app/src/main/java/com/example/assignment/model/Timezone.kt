@@ -5,6 +5,6 @@ import androidx.room.Entity
 @Entity
 data class Timezone (
 
-	val offset : String,
-	val description : String
+	val offset : String? = null,
+	val description : String? = null
 )

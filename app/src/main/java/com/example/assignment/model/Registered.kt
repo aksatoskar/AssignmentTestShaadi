@@ -1,10 +1,13 @@
 package com.example.assignment.model
 
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 @Entity
 data class Registered (
 
-	val date : String,
-	val age : Int
+	@ColumnInfo(name = "registeredDate")
+	val date : String? = null,
+	@ColumnInfo(name = "registeredAge")
+	val age : Int? = null
 )

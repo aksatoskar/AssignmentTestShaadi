@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Standard Dimensions -->
+    <dimen name="dimen_8dp">8dp</dimen>
+    <dimen name="dimen_10dp">10dp</dimen>
+    <dimen name="dimen_6dp">6dp</dimen>
+    <dimen name="dimen_40dp">40dp</dimen>
+    <dimen name="dimen_24dp">24dp</dimen>
+
+    <dimen name="profile_pic_height">140dp</dimen>
+    <dimen name="profile_pic_width">120dp</dimen>
+
+
+    <!-- Font Sizes -->
+    <dimen name="primary_text_size">18sp</dimen>
+    <dimen name="secondary_text_size">14sp</dimen>
+    <dimen name="font_16sp">16sp</dimen>
+
+    <dimen name="line_spacing_4">4sp</dimen>
+
+</resources>
