@@ -12,18 +12,17 @@ import appendList
 import com.example.assignment.databinding.MainFragmentBinding
 import com.example.assignment.model.ProfileDetails
 import com.example.assignment.model.Result
-import com.example.assignment.ui.main.adapter.OnItemClickListener
 
 import dagger.hilt.android.AndroidEntryPoint
 import io.buildwithnd.demotmdb.util.AppConstants.ACCEPTED
-import updateItem
+import io.buildwithnd.demotmdb.util.AppConstants.PROFILE_ACCEPTED
+import io.buildwithnd.demotmdb.util.AppConstants.PROFILE_DECLINED
 
 @AndroidEntryPoint
-class MainFragment : Fragment(), OnItemClickListener {
+class MainFragment : Fragment() {
 
     private var _binding: MainFragmentBinding? = null
     private val binding get() = _binding!!
-    private val adapter = ProfilesAdapter()
 
     companion object {
         fun newInstance() = MainFragment()
@@ -49,7 +48,24 @@ class MainFragment : Fragment(), OnItemClickListener {
         viewModel.fetchProfiles()
         subscribeUi()
         binding.rvProfiles.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        adapter.setItemClickListener(this)
+        val adapter = ProfilesAdapter { items: MutableList<ProfileDetails>, changed: ProfileDetails, action: String ->
+
+            var element = items.first { it.login.uuid == changed.login.uuid }
+            val index = items.indexOf(element)
+
+            element = if(action == ACCEPTED) {
+                element.copy(action = PROFILE_ACCEPTED)
+            } else {
+                element.copy(action = PROFILE_DECLINED)
+            }
+            viewModel.updateProfile(element)
+
+            items[index] = element
+
+            (binding.rvProfiles.adapter as ProfilesAdapter).submitList(items)
+
+        }
+
         binding.rvProfiles.adapter = adapter
 
     }
@@ -62,7 +78,7 @@ class MainFragment : Fragment(), OnItemClickListener {
             when (result.status) {
                 Result.Status.SUCCESS -> {
                     result.data?.results?.let { list ->
-                        adapter.appendList(list)
+                        (binding.rvProfiles.adapter as ProfilesAdapter).appendList(list)
                     }
                     _binding?.loading?.visibility = View.GONE
                 }
@@ -105,17 +121,4 @@ class MainFragment : Fragment(), OnItemClickListener {
 
         })
     }
-
-    override fun onItemClick(position: Int, action: String, profileDetails: ProfileDetails) {
-        if(action == ACCEPTED) {
-            profileDetails.action = 1
-            viewModel.updateProfile(profileDetails)
-        } else {
-            profileDetails.action = 0
-            viewModel.updateProfile(profileDetails)
-        }
-        adapter.updateItem(position, profileDetails)
-        adapter.notifyItemChanged(position)
-    }
-
 }

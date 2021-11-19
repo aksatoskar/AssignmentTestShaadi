@@ -1,5 +1,6 @@
 package com.example.assignment.ui.main
 
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,32 +12,44 @@ import coil.load
 import com.example.assignment.R
 import com.example.assignment.databinding.ListItemProfileBinding
 import com.example.assignment.model.ProfileDetails
-import com.example.assignment.ui.main.adapter.OnItemClickListener
 import io.buildwithnd.demotmdb.util.AppConstants
+import io.buildwithnd.demotmdb.util.AppConstants.ARG_ACTION
 import io.buildwithnd.demotmdb.util.AppConstants.LOCATION
+import io.buildwithnd.demotmdb.util.AppConstants.PROFILE_ACCEPTED
+import io.buildwithnd.demotmdb.util.AppConstants.PROFILE_DECLINED
+import java.util.*
 
-class ProfilesAdapter:
+class ProfilesAdapter(val action: (items: MutableList<ProfileDetails>, changed: ProfileDetails, action: String) -> Unit):
     ListAdapter<ProfileDetails, ProfilesAdapter.ProfileViewHolder>(DiffCallback()) {
 
-    private var listener: OnItemClickListener? = null
-
-    fun setItemClickListener(listener: OnItemClickListener) {
-        this.listener = listener
-    }
+    private lateinit var binding: ListItemProfileBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProfileViewHolder {
-        val binding = ListItemProfileBinding
+        binding = ListItemProfileBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
 
         return ProfileViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ProfilesAdapter.ProfileViewHolder, position: Int) {
-        holder.bind(getItem(position), listener)
+        onBindViewHolder(holder, position, Collections.emptyList())
     }
 
-    class ProfileViewHolder(private val binding: ListItemProfileBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(profileDetails: ProfileDetails, listener: OnItemClickListener?) = with(itemView) {
+    override fun onBindViewHolder(holder: ProfilesAdapter.ProfileViewHolder, position: Int, payload: List<Any>) {
+        val item = getItem(position)
+
+        if (payload.isEmpty() || payload[0] !is Bundle) {
+            holder.bind(item)
+        } else {
+            val bundle = payload[0] as Bundle
+            holder.update(bundle)
+        }
+
+        holder.bind(getItem(position))
+    }
+
+    inner class ProfileViewHolder(private val binding: ListItemProfileBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(profileDetails: ProfileDetails) = with(itemView) {
             binding.tvName.text = "${profileDetails.name?.title} ${profileDetails.name?.first} ${profileDetails.name?.last}"
             profileDetails.dob?.age?.let { age->
                 binding.tvAge.visibility = View.VISIBLE
@@ -51,21 +64,21 @@ class ProfilesAdapter:
                 binding.ivPoster.load(url)
             }
 
-            updateUserActionUI(profileDetails, binding)
+            updateUserActionUI(profileDetails)
 
             binding.btAccept.setOnClickListener {
-                listener?.onItemClick(adapterPosition, AppConstants.ACCEPTED, profileDetails)
+                action(currentList.toMutableList(), profileDetails, AppConstants.ACCEPTED)
             }
 
             binding.btDecline.setOnClickListener {
-                listener?.onItemClick(adapterPosition, AppConstants.DECLINED, profileDetails)
+                action(currentList.toMutableList(), profileDetails, AppConstants.DECLINED)
             }
         }
 
-        private fun updateUserActionUI(profileDetails: ProfileDetails, binding: ListItemProfileBinding) {
+        private fun updateUserActionUI(profileDetails: ProfileDetails) {
             when(profileDetails.action) {
-                1 -> showUserActionUI(true, binding)
-                0 -> showUserActionUI(false, binding)
+                PROFILE_ACCEPTED -> showUserActionUI(true)
+                PROFILE_DECLINED -> showUserActionUI(false)
                 else -> {
                     binding.tvAction.visibility = View.GONE
                     binding.btDecline.visibility = View.VISIBLE
@@ -74,7 +87,7 @@ class ProfilesAdapter:
             }
         }
 
-        private fun showUserActionUI(isAccepted: Boolean, binding: ListItemProfileBinding) {
+        private fun showUserActionUI(isAccepted: Boolean) {
             binding.tvAction.visibility = View.VISIBLE
             binding.btDecline.visibility = View.GONE
             binding.btAccept.visibility = View.GONE
@@ -84,6 +97,21 @@ class ProfilesAdapter:
             } else {
                 binding.tvAction.text = binding.root.context.getString(R.string.profile_declined)
                 binding.tvAction.setTextColor(ContextCompat.getColor(binding.root.context, R.color.red_400))
+            }
+        }
+
+        fun update(bundle: Bundle) {
+            if (bundle.containsKey(ARG_ACTION)) {
+                val action = bundle.getInt(ARG_ACTION)
+                when(action) {
+                    PROFILE_ACCEPTED -> showUserActionUI(true)
+                    PROFILE_DECLINED -> showUserActionUI(false)
+                    else -> {
+                        binding.tvAction.visibility = View.GONE
+                        binding.btDecline.visibility = View.VISIBLE
+                        binding.btAccept.visibility = View.VISIBLE
+                    }
+                }
             }
         }
     }
@@ -96,5 +124,18 @@ class DiffCallback : DiffUtil.ItemCallback<ProfileDetails>() {
 
     override fun areContentsTheSame(oldItem: ProfileDetails, newItem: ProfileDetails): Boolean {
         return oldItem == newItem
+    }
+
+    override fun getChangePayload(oldItem: ProfileDetails, newItem: ProfileDetails): Any? {
+        if (oldItem.login.uuid == newItem.login.uuid) {
+            return if (oldItem.action == newItem.action) {
+                super.getChangePayload(oldItem, newItem)
+            } else {
+                val diff = Bundle()
+                diff.putInt(ARG_ACTION, newItem.action!!)
+                diff
+            }
+        }
+        return super.getChangePayload(oldItem, newItem)
     }
 }
