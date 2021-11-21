@@ -30,6 +30,9 @@ ext {
     moshiVersion = "1.9.2"
     hiltVersion = "2.38.1"
     coilVersion = "1.2.2"
+    androidxTest = "2.1.0"
+    mockitoVersion = "3.11.2"
+    mockkVersion = "1.10.0"
 
 }
 

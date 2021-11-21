@@ -7,7 +7,6 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ActivityComponent
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -44,5 +43,11 @@ object NetworkModule {
             .addCallAdapterFactory(CoroutineCallAdapterFactory())
             .client(okHttpClient)
             .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideUpiApi(retrofit: Retrofit): ApiService {
+        return retrofit.create(ApiService::class.java)
     }
 }

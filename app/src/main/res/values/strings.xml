@@ -3,6 +3,10 @@
     <string name="age">Age: %d years</string>
     <string name="accept">Accept</string>
     <string name="decline">Decline</string>
+    <string name="retry">Retry</string>
     <string name="profile_accepted">Accepted</string>
     <string name="profile_declined">Declined</string>
+    <string name="default_profile_fetch_failure_msg">Error fetching profile list</string>
+    <string name="api_technical_failure">Something went wrong</string>
+    <string name="failed_network_msg">No internet connection</string>
 </resources>

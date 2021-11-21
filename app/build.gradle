@@ -65,6 +65,7 @@ dependencies {
     // Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutinesVersion"
 
     //roomDatabase
     implementation "androidx.room:room-runtime:$roomVersion"
@@ -84,4 +85,13 @@ dependencies {
 
     //Coil Image library
     implementation "io.coil-kt:coil:$coilVersion"
+
+    // Testing Architecture components
+    testImplementation "androidx.arch.core:core-testing:$androidxTest"
+    testImplementation "androidx.room:room-testing:$roomVersion"
+
+    // Dependencies for local unit tests
+    testImplementation "org.mockito:mockito-core:$mockitoVersion"
+    // mock extension function
+    testImplementation "io.mockk:mockk:$mockkVersion"
 }

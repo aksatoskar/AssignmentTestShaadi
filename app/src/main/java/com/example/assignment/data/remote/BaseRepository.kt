@@ -1,24 +1,62 @@
 package com.example.assignment.data.remote
 
-import com.example.assignment.model.Result
-import io.buildwithnd.demotmdb.util.ErrorUtils
-import retrofit2.Response
-import retrofit2.Retrofit
+import com.example.assignment.model.Resource
+import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.Moshi
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.io.IOException
+
 
 abstract class BaseRepository {
 
-    suspend fun <T> getResponse(request: suspend () -> Response<T>, defaultErrorMessage: String, retrofit: Retrofit): Result<T> {
-        return try {
-            println("I'm working in thread ${Thread.currentThread().name}")
-            val result = request.invoke()
-            if (result.isSuccessful) {
-                return Result.success(result.body())
-            } else {
-                val errorResponse = ErrorUtils.parseError(result, retrofit)
-                Result.error(errorResponse?.status_message ?: defaultErrorMessage, errorResponse)
+    suspend inline fun <reified T> safeApiCall(
+        dispatcher: CoroutineDispatcher,
+        noinline apiCall: suspend () -> T
+    ): Resource<T> {
+        return withContext(dispatcher) {
+            try {
+                Resource.success(apiCall.invoke())
+            } catch (throwable: Throwable) {
+                processForError(throwable,  false, dispatcher)
             }
-        } catch (e: Throwable) {
-            Result.error("Unknown Error", null)
+        }
+    }
+
+    suspend inline fun <reified T> processForError(
+        throwable: Throwable,
+        readErrorBody: Boolean,
+        dispatcher: CoroutineDispatcher
+    ): Resource<T> {
+        return when (throwable) {
+            is HttpException -> {
+                if (readErrorBody) {
+                    val error: T? = convertErrorBody(throwable, dispatcher)
+                    Resource.error(throwable, error)
+                } else {
+                    Resource.error(throwable, null)
+                }
+            }
+            else -> Resource.error(throwable, null)
+        }
+    }
+
+    suspend inline fun <reified T> convertErrorBody(
+        throwable: HttpException,
+        dispatcher: CoroutineDispatcher
+    ): T? {
+        return withContext(dispatcher){
+            try {
+                throwable.response()?.errorBody()?.source()?.let {
+                    val moshi = Moshi.Builder().build()
+                    val jsonAdapter: JsonAdapter<T> = moshi.adapter<T>(T::class.java)
+                    val data = jsonAdapter.fromJson(it)
+                    return@withContext data
+                }
+            } catch (exception: Exception) {
+                null
+            }
         }
     }
 }

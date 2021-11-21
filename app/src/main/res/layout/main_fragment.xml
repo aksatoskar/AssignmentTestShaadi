@@ -26,5 +26,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"/>
 
+    <LinearLayout
+        android:id="@+id/llError"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:padding="@dimen/dimen_8dp">
+
+        <TextView
+            android:id="@+id/tvErrorMsg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:gravity="center_horizontal"
+            android:textColor="@color/black"
+            style="@style/SecondaryTextStyle"/>
+
+        <Button
+            android:id="@+id/btRetry"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/retry" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
