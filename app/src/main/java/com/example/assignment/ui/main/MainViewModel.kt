@@ -24,10 +24,6 @@ class MainViewModel @Inject constructor(
         get() = _stateFlow
 
 
-    private val _updateProfileItem = MutableLiveData<Resource<Boolean>>()
-    val updateProfileItem = _updateProfileItem
-
-
     fun fetchProfiles() {
         viewModelScope.launch {
             sourceRepository.fetchProfiles(10).collect {
@@ -38,9 +34,7 @@ class MainViewModel @Inject constructor(
 
     fun updateProfile(profileDetails: ProfileDetails) {
         viewModelScope.launch {
-            sourceRepository.updateProfile(profileDetails).collect {
-                _updateProfileItem.value = it
-            }
+            sourceRepository.updateProfile(profileDetails)
         }
     }
 }

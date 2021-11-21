@@ -13,14 +13,14 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class PaymentSourceRepositoryImpl @Inject constructor(
+class SourceRepositoryImpl @Inject constructor(
     private var dataSource: IDataSource,
     private var networkSource: INetworkSource,
     private var dispatcher: CoroutineDispatcher,
     @ApplicationContext private var context: Context
 ) : ISourceRepository {
-    override suspend fun updateProfile(profileDetails: ProfileDetails): Flow<Resource<Boolean>> {
-        return dataSource.updateProfile(profileDetails)
+    override suspend fun updateProfile(profileDetails: ProfileDetails) {
+        dataSource.updateProfile(profileDetails)
     }
 
     override suspend fun insertProfiles(profilesList: List<ProfileDetails>) {

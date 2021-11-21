@@ -22,19 +22,19 @@ object RepositoryModule {
 
     @Singleton
     @Provides
-    fun provideUpiSourceRepositoryImpl(source: PaymentSourceRepositoryImpl): ISourceRepository {
+    fun provideUpiSourceRepositoryImpl(source: SourceRepositoryImpl): ISourceRepository {
         return source
     }
 
     @Singleton
     @Provides
-    fun provideUpiNetworkSource(networkSourceImpl: PaymentNetworkSourceImpl): INetworkSource {
+    fun provideUpiNetworkSource(networkSourceImpl: NetworkSourceImpl): INetworkSource {
         return networkSourceImpl
     }
 
     @Singleton
     @Provides
-    fun provideUpiDataSource(dataSourceImpl: PaymentDataSourceImpl): IDataSource {
+    fun provideUpiDataSource(dataSourceImpl: DataSourceImpl): IDataSource {
         return dataSourceImpl
     }
 }

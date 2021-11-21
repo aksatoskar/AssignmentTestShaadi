@@ -7,7 +7,7 @@ import com.example.assignment.network.ApiService
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Inject
 
-class PaymentNetworkSourceImpl @Inject constructor(
+class NetworkSourceImpl @Inject constructor(
     private var dispatcher: CoroutineDispatcher,
     private val apiService: ApiService
 ) : BaseRepository(), INetworkSource {

@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 
 
 interface ISourceRepository {
-    suspend fun updateProfile(profileDetails: ProfileDetails): Flow<Resource<Boolean>>
+    suspend fun updateProfile(profileDetails: ProfileDetails)
 
     suspend fun insertProfiles(profilesList: List<ProfileDetails>)
 

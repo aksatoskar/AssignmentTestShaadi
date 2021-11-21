@@ -105,29 +105,5 @@ class MainFragment : Fragment() {
                 }
             }
         }
-
-        viewModel.updateProfileItem.observe(viewLifecycleOwner, Observer { result ->
-
-            when (result.status) {
-                Resource.Status.SUCCESS -> {
-                    result.data.let { isUpdatedSuccessfully->
-
-                    }
-                    _binding?.loading?.visibility = View.GONE
-                }
-
-                Resource.Status.ERROR -> {
-                    /*result.message?.let {
-                        //showError(it)
-                    }*/
-                    _binding?.loading?.visibility = View.GONE
-                }
-
-                Resource.Status.LOADING -> {
-                    _binding?.loading?.visibility = View.VISIBLE
-                }
-            }
-
-        })
     }
 }

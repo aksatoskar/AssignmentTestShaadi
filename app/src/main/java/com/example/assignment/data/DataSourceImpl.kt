@@ -11,15 +11,15 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 
-class PaymentDataSourceImpl @Inject constructor(
+class DataSourceImpl @Inject constructor(
     private val profileDao: ProfileDao,
     private var ioDispatcher: CoroutineDispatcher
 ) : BaseRepository(), IDataSource {
-    override suspend fun updateProfile(profileDetails: ProfileDetails): Flow<Resource<Boolean>> {
-        return flow {
+    override suspend fun updateProfile(profileDetails: ProfileDetails) {
+        flow {
             emit(Resource.loading())
-            val result = profileDao.update(profileDetails)
-            emit(Resource.success(true))
+            profileDao.update(profileDetails)
+            emit(Resource.success(null))
         }.flowOn(ioDispatcher)
     }
 
