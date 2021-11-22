@@ -35,6 +35,17 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        dev {
+            applicationIdSuffix ".dev"
+            dimension "default"
+            buildConfigField 'String', 'API_BASE_URL', '"https://randomuser.me/"'
+        }
+    }
+
 }
 
 dependencies {

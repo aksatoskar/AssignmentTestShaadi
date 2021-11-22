@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import appendList
@@ -15,11 +14,10 @@ import com.example.assignment.model.ProfileDetails
 import com.example.assignment.model.Resource
 import com.example.assignment.util.hide
 import com.example.assignment.util.show
-
 import dagger.hilt.android.AndroidEntryPoint
-import io.buildwithnd.demotmdb.util.AppConstants.ACCEPTED
-import io.buildwithnd.demotmdb.util.AppConstants.PROFILE_ACCEPTED
-import io.buildwithnd.demotmdb.util.AppConstants.PROFILE_DECLINED
+import com.example.assignment.util.AppConstants.ACCEPTED
+import com.example.assignment.util.AppConstants.PROFILE_ACCEPTED
+import com.example.assignment.util.AppConstants.PROFILE_DECLINED
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 

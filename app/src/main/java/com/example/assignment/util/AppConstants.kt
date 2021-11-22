@@ -1,9 +1,6 @@
-package io.buildwithnd.demotmdb.util
+package com.example.assignment.util
 
-import retrofit2.Response
-import retrofit2.Retrofit
-import java.io.IOException
-import com.example.assignment.model.Error
+import com.example.assignment.BuildConfig
 
 /**
  * parses error response body
@@ -17,4 +14,5 @@ object AppConstants {
     val PROFILE_DECLINED = 0
 
     val ARG_ACTION = "ARG_ACTION"
+    val BASE_URL = BuildConfig.API_BASE_URL
 }

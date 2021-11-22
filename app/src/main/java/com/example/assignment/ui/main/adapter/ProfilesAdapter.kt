@@ -8,15 +8,17 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import coil.load
 import com.example.assignment.R
 import com.example.assignment.databinding.ListItemProfileBinding
 import com.example.assignment.model.ProfileDetails
-import io.buildwithnd.demotmdb.util.AppConstants
-import io.buildwithnd.demotmdb.util.AppConstants.ARG_ACTION
-import io.buildwithnd.demotmdb.util.AppConstants.LOCATION
-import io.buildwithnd.demotmdb.util.AppConstants.PROFILE_ACCEPTED
-import io.buildwithnd.demotmdb.util.AppConstants.PROFILE_DECLINED
+import com.example.assignment.util.AppConstants
+import com.example.assignment.util.AppConstants.ARG_ACTION
+import com.example.assignment.util.AppConstants.LOCATION
+import com.example.assignment.util.AppConstants.PROFILE_ACCEPTED
+import com.example.assignment.util.AppConstants.PROFILE_DECLINED
+import com.example.assignment.util.hide
+import com.example.assignment.util.loadWithException
+import com.example.assignment.util.show
 import java.util.*
 
 class ProfilesAdapter(val action: (items: MutableList<ProfileDetails>, changed: ProfileDetails, action: String) -> Unit):
@@ -60,8 +62,8 @@ class ProfilesAdapter(val action: (items: MutableList<ProfileDetails>, changed: 
                 binding.tvLocation.text = String.format(LOCATION, location.city, location.country)
             }
 
-            profileDetails.picture?.thumbnail?.let { url->
-                binding.ivPoster.load(url)
+            profileDetails.picture?.large?.let { url->
+                binding.ivPoster.loadWithException(url, R.drawable.profile_placeholder)
             }
 
             updateUserActionUI(profileDetails)
@@ -80,17 +82,17 @@ class ProfilesAdapter(val action: (items: MutableList<ProfileDetails>, changed: 
                 PROFILE_ACCEPTED -> showUserActionUI(true)
                 PROFILE_DECLINED -> showUserActionUI(false)
                 else -> {
-                    binding.tvAction.visibility = View.GONE
-                    binding.btDecline.visibility = View.VISIBLE
-                    binding.btAccept.visibility = View.VISIBLE
+                    binding.tvAction.hide()
+                    binding.btDecline.show()
+                    binding.btAccept.show()
                 }
             }
         }
 
         private fun showUserActionUI(isAccepted: Boolean) {
-            binding.tvAction.visibility = View.VISIBLE
-            binding.btDecline.visibility = View.GONE
-            binding.btAccept.visibility = View.GONE
+            binding.tvAction.show()
+            binding.btDecline.hide()
+            binding.btAccept.hide()
             if(isAccepted) {
                 binding.tvAction.text = binding.root.context.getString(R.string.profile_accepted)
                 binding.tvAction.setTextColor(ContextCompat.getColor(binding.root.context, R.color.green))

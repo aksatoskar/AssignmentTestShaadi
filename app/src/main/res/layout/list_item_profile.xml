@@ -1,101 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:paddingEnd="@dimen/dimen_10dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/dimen_8dp"
-    android:layout_height="wrap_content">
+    android:layout_marginTop="@dimen/dimen_8dp"
+    android:layout_marginStart="@dimen/dimen_16dp"
+    android:layout_marginEnd="@dimen/dimen_16dp"
+    app:cardBackgroundColor="@color/white"
+    app:cardCornerRadius="@dimen/dimen_4dp">
 
-    <ImageView
-        android:id="@+id/ivPoster"
-        android:layout_width="@dimen/profile_pic_width"
-        android:layout_height="@dimen/profile_pic_height"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/tvName"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constrainedWidth="true"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_10dp"
-        tools:text="Mr Brad Gibson"
-        style="@style/PrimaryTextStyle"
-        app:layout_constraintStart_toEndOf="@+id/ivPoster"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:paddingEnd="@dimen/dimen_10dp">
 
-    <TextView
-        android:id="@+id/tvAge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constrainedWidth="true"
-        style="@style/SecondaryTextStyle"
-        android:visibility="gone"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintStart_toStartOf="@+id/tvName"
-        app:layout_constraintTop_toBottomOf="@+id/tvName"
-        tools:text="Age: 26yr" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivPoster"
+            android:layout_width="@dimen/profile_pic_width"
+            android:layout_height="0dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:srcCompat="@drawable/profile_placeholder" />
 
-    <TextView
-        android:id="@+id/tvLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constrainedWidth="true"
-        style="@style/SecondaryTextStyle"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        app:layout_constraintStart_toStartOf="@+id/tvAge"
-        app:layout_constraintTop_toBottomOf="@+id/tvAge"
-        tools:text="Mumbai, India" />
+        <TextView
+            android:id="@+id/tvName"
+            style="@style/PrimaryTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toEndOf="@+id/ivPoster"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Mr Brad Gibson" />
 
-    <Button
-        android:id="@+id/btDecline"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        android:text="@string/decline"
-        style="@style/Widget.AppCompat.Button.Colored"
-        app:layout_constraintStart_toEndOf="@+id/ivPoster"
-        app:layout_constraintEnd_toStartOf="@+id/btAccept"
-        app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+        <TextView
+            android:id="@+id/tvAge"
+            style="@style/SecondaryTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:visibility="gone"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@+id/tvName"
+            app:layout_constraintTop_toBottomOf="@+id/tvName"
+            tools:text="Age: 26yr" />
 
-    <Button
-        android:id="@+id/btAccept"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_8dp"
-        android:text="@string/accept"
-        style="@style/Widget.AppCompat.Button.Colored"
-        app:layout_constraintTop_toBottomOf="@+id/tvLocation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/btDecline" />
+        <TextView
+            android:id="@+id/tvLocation"
+            style="@style/SecondaryTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toStartOf="@+id/tvAge"
+            app:layout_constraintTop_toBottomOf="@+id/tvAge"
+            tools:text="Mumbai, India" />
 
-    <TextView
-        android:id="@+id/tvAction"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/dimen_10dp"
-        android:layout_marginTop="@dimen/dimen_10dp"
-        tools:text="@string/profile_accepted"
-        style="@style/ActionTextStyle"
-        app:layout_constraintStart_toEndOf="@+id/ivPoster"
-        app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
+        <Button
+            android:id="@+id/btDecline"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="@string/decline"
+            app:layout_constraintEnd_toStartOf="@+id/btAccept"
+            app:layout_constraintStart_toEndOf="@+id/ivPoster"
+            app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
 
+        <Button
+            android:id="@+id/btAccept"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_8dp"
+            android:text="@string/accept"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/btDecline"
+            app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
 
-    <!--<TextView
-        android:id="@+id/tvAgeRating"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        tools:text="1h 58m"
-        android:textColor="@android:color/white"
-        app:layout_constraintStart_toEndOf="@+id/tvGenre"
-        app:layout_constraintTop_toTopOf="@+id/tvGenre" />-->
+        <TextView
+            android:id="@+id/tvAction"
+            style="@style/ActionTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_10dp"
+            android:layout_marginTop="@dimen/dimen_10dp"
+            android:visibility="gone"
+            app:layout_constraintStart_toEndOf="@+id/ivPoster"
+            app:layout_constraintTop_toBottomOf="@+id/tvLocation"
+            tools:text="@string/profile_accepted" />
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.cardview.widget.CardView>

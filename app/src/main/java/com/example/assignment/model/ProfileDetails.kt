@@ -21,8 +21,6 @@ data class ProfileDetails (
 	val login : Login,
 	@Embedded
 	val dob : Dob? = null,
-	@Embedded
-	val registered : Registered? = null,
 	val phone : String? = null,
 	val cell : String? = null,
 	@Embedded
