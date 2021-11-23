@@ -110,9 +110,9 @@ class ProfilesAdapter(val action: (items: MutableList<ProfileDetails>, changed: 
                     PROFILE_ACCEPTED -> showUserActionUI(true)
                     PROFILE_DECLINED -> showUserActionUI(false)
                     else -> {
-                        binding.tvAction.visibility = View.GONE
-                        binding.btDecline.visibility = View.INVISIBLE
-                        binding.btAccept.visibility = View.VISIBLE
+                        binding.tvAction.hide()
+                        binding.btDecline.invisible()
+                        binding.btAccept.show()
                     }
                 }
             }
