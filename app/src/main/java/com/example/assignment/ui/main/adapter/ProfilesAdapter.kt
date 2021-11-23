@@ -18,6 +18,7 @@ import com.example.assignment.util.AppConstants.LOCATION
 import com.example.assignment.util.AppConstants.PROFILE_ACCEPTED
 import com.example.assignment.util.AppConstants.PROFILE_DECLINED
 import com.example.assignment.util.hide
+import com.example.assignment.util.invisible
 import com.example.assignment.util.show
 import java.util.*
 
@@ -91,7 +92,7 @@ class ProfilesAdapter(val action: (items: MutableList<ProfileDetails>, changed: 
 
         private fun showUserActionUI(isAccepted: Boolean) {
             binding.tvAction.show()
-            binding.btDecline.hide()
+            binding.btDecline.invisible()
             binding.btAccept.hide()
             if(isAccepted) {
                 binding.tvAction.text = binding.root.context.getString(R.string.profile_accepted)
@@ -110,7 +111,7 @@ class ProfilesAdapter(val action: (items: MutableList<ProfileDetails>, changed: 
                     PROFILE_DECLINED -> showUserActionUI(false)
                     else -> {
                         binding.tvAction.visibility = View.GONE
-                        binding.btDecline.visibility = View.VISIBLE
+                        binding.btDecline.visibility = View.INVISIBLE
                         binding.btAccept.visibility = View.VISIBLE
                     }
                 }

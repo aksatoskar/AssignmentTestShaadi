@@ -20,10 +20,10 @@
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivPoster"
             android:layout_width="@dimen/profile_pic_width"
-            android:layout_height="0dp"
+            android:layout_height="@dimen/profile_pic_height"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
             tools:srcCompat="@drawable/profile_placeholder" />
 
         <TextView
@@ -32,8 +32,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_10dp"
-            android:layout_marginTop="@dimen/dimen_10dp"
             app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@+id/tvAge"
             app:layout_constraintStart_toEndOf="@+id/ivPoster"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Mr Brad Gibson" />
@@ -43,9 +43,9 @@
             style="@style/SecondaryTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_8dp"
             android:visibility="gone"
             app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@+id/tvLocation"
             app:layout_constraintStart_toStartOf="@+id/tvName"
             app:layout_constraintTop_toBottomOf="@+id/tvName"
             tools:text="Age: 26yr" />
@@ -55,8 +55,8 @@
             style="@style/SecondaryTextStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dimen_8dp"
             app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@+id/btDecline"
             app:layout_constraintStart_toStartOf="@+id/tvAge"
             app:layout_constraintTop_toBottomOf="@+id/tvAge"
             tools:text="Mumbai, India" />
@@ -67,8 +67,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_10dp"
-            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
             android:text="@string/decline"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPoster"
             app:layout_constraintEnd_toStartOf="@+id/btAccept"
             app:layout_constraintStart_toEndOf="@+id/ivPoster"
             app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
@@ -79,8 +80,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_10dp"
-            android:layout_marginTop="@dimen/dimen_8dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
             android:text="@string/accept"
+            app:layout_constraintBottom_toBottomOf="@+id/ivPoster"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/btDecline"
             app:layout_constraintTop_toBottomOf="@+id/tvLocation" />
@@ -92,9 +94,11 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_10dp"
             android:layout_marginTop="@dimen/dimen_10dp"
+            android:layout_marginBottom="@dimen/dimen_8dp"
             android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/btDecline"
             app:layout_constraintStart_toEndOf="@+id/ivPoster"
-            app:layout_constraintTop_toBottomOf="@+id/tvLocation"
+            app:layout_constraintTop_toTopOf="@+id/btDecline"
             tools:text="@string/profile_accepted" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
