@@ -1,11 +1,10 @@
-package com.example.assignment.ui.main
+package com.example.assignment.ui.main.view
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +12,8 @@ import appendList
 import com.example.assignment.databinding.MainFragmentBinding
 import com.example.assignment.model.ProfileDetails
 import com.example.assignment.model.Resource
+import com.example.assignment.ui.main.viewmodel.MainViewModel
+import com.example.assignment.ui.main.ProfilesAdapter
 import com.example.assignment.util.hide
 import com.example.assignment.util.show
 import dagger.hilt.android.AndroidEntryPoint
@@ -20,7 +21,6 @@ import com.example.assignment.util.AppConstants.ACCEPTED
 import com.example.assignment.util.AppConstants.PROFILE_ACCEPTED
 import com.example.assignment.util.AppConstants.PROFILE_DECLINED
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {

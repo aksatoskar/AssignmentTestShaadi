@@ -6,8 +6,7 @@ import com.example.assignment.data.local.ProfileDao
 import com.example.assignment.model.MatchProfileResponse
 import com.example.assignment.model.ProfileDetails
 import com.example.assignment.model.Resource
-import com.example.assignment.network.ApiService
-import com.example.assignment.ui.main.MainViewModel
+import com.example.assignment.ui.main.viewmodel.MainViewModel
 import com.example.assignment.util.isNetworkAvailable
 import com.tatadigital.tcp.payments.upipayment.paytovpa.data.repository.ISourceRepository
 import io.mockk.every
@@ -22,7 +21,6 @@ import org.junit.rules.TestRule
 import org.mockito.Mock
 import org.mockito.Mockito.`when`
 import org.mockito.MockitoAnnotations
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.test.runBlockingTest
 
