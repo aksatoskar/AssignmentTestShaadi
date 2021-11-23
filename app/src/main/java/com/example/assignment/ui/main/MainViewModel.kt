@@ -22,6 +22,9 @@ class MainViewModel @Inject constructor(
     val stateFlow: StateFlow<Resource<MatchProfileResponse>>
         get() = _stateFlow
 
+    private val _updateProfileItem = MutableStateFlow<Resource<Boolean>>(Resource.loading())
+    val updateProfileItem: StateFlow<Resource<Boolean>>
+        get() = _updateProfileItem
 
     fun fetchProfiles() {
         viewModelScope.launch {
@@ -33,7 +36,9 @@ class MainViewModel @Inject constructor(
 
     fun updateProfile(profileDetails: ProfileDetails) {
         viewModelScope.launch {
-            sourceRepository.updateProfile(profileDetails)
+            sourceRepository.updateProfile(profileDetails).collect {
+                _updateProfileItem.value = it
+            }
         }
     }
 }

@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -78,7 +79,7 @@ class MainFragment : Fragment() {
     }
 
     private fun subscribeUi() {
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             viewModel.stateFlow.collect { resource ->
                 when (resource.status) {
                     Resource.Status.SUCCESS -> {
@@ -100,6 +101,16 @@ class MainFragment : Fragment() {
                             (binding.rvProfiles.adapter as ProfilesAdapter).submitList(resource.data?.results)
                         }
                     }
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.updateProfileItem.collect { result ->
+                if(result.status == Resource.Status.LOADING) {
+                    _binding?.loading?.show()
+                } else {
+                    _binding?.loading?.hide()
                 }
             }
         }

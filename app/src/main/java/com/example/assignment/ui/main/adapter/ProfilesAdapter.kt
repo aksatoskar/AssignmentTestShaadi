@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.example.assignment.R
 import com.example.assignment.databinding.ListItemProfileBinding
 import com.example.assignment.model.ProfileDetails
@@ -17,7 +18,6 @@ import com.example.assignment.util.AppConstants.LOCATION
 import com.example.assignment.util.AppConstants.PROFILE_ACCEPTED
 import com.example.assignment.util.AppConstants.PROFILE_DECLINED
 import com.example.assignment.util.hide
-import com.example.assignment.util.loadWithException
 import com.example.assignment.util.show
 import java.util.*
 
@@ -63,7 +63,7 @@ class ProfilesAdapter(val action: (items: MutableList<ProfileDetails>, changed: 
             }
 
             profileDetails.picture?.large?.let { url->
-                binding.ivPoster.loadWithException(url, R.drawable.profile_placeholder)
+                binding.ivPoster.load(url)
             }
 
             updateUserActionUI(profileDetails)

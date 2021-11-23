@@ -19,12 +19,8 @@ class SourceRepositoryImpl @Inject constructor(
     private var dispatcher: CoroutineDispatcher,
     @ApplicationContext private var context: Context
 ) : ISourceRepository {
-    override suspend fun updateProfile(profileDetails: ProfileDetails) {
-        dataSource.updateProfile(profileDetails)
-    }
-
-    override suspend fun insertProfiles(profilesList: List<ProfileDetails>) {
-        return dataSource.insertProfiles(profilesList)
+    override suspend fun updateProfile(profileDetails: ProfileDetails): Flow<Resource<Boolean>> {
+        return dataSource.updateProfile(profileDetails)
     }
 
     override suspend fun getAllProfiles(): List<ProfileDetails> {
